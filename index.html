@@ -3,649 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Universe — Нейросети</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Rajdhani:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<title>AI Tools Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #050508;
-  --surface: #0d0d1a;
-  --surface2: #101020;
-  --text: #e8e8f0;
-  --text2: #8888aa;
-  --dim: #333355;
-  --neon: rgba(123,104,238,0.6);
-  --neon-glow: rgba(123,104,238,0.12);
-  --pink: rgba(196,116,138,0.7);
-  --pink-fill: rgba(196,116,138,0.07);
-  --gold: #b8a882;
-  --border: rgba(255,255,255,0.05);
-  --border-neon: rgba(123,104,238,0.25);
+:root{
+--bg:#0b0b0f;
+--card:#121218;
+--accent:#ff4fa3;
+--text:#e8e8f0;
+--muted:#9aa0aa;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
 body{
-  font-family:'Rajdhani','Noto Sans JP',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
+font-family:Inter, sans-serif;
+background:radial-gradient(circle at 20% 20%, #16161f, #0b0b0f 60%);
+color:var(--text);
+min-height:100vh;
+overflow-x:hidden;
 }
 
-/* ── BG SCENE ── */
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bg-canvas{width:100%;height:100%;position:absolute}
-.grid-lines{
-  position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(123,104,238,0.022) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(123,104,238,0.022) 1px,transparent 1px);
-  background-size:64px 64px;
+header{
+padding:40px 20px;
+text-align:center;
 }
 
-/* ── CHARACTERS ── */
-.char{
-  position:fixed;bottom:0;z-index:2;pointer-events:none;
-  height:min(68vh,500px);
-  opacity:0;
-  transition:opacity 1s;
+h1{
+font-weight:600;
+letter-spacing:1px;
 }
-.char-l{left:0;animation:charIn 1.2s 1.5s forwards,floatL 7s 2.8s ease-in-out infinite}
-.char-r{right:0;transform:scaleX(-1);animation:charInR 1.2s 1.5s forwards,floatR 8s 3s ease-in-out infinite}
-@keyframes charIn {from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes charInR{from{opacity:0;transform:scaleX(-1) translateY(24px)}to{opacity:1;transform:scaleX(-1) translateY(0)}}
-@keyframes floatL{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes floatR{0%,100%{transform:scaleX(-1) translateY(0)}50%{transform:scaleX(-1) translateY(-12px)}}
-@media(max-width:960px){.char{display:none}}
 
-/* ── LAYOUT ── */
-.wrap{position:relative;z-index:10;max-width:1100px;margin:0 auto;padding:0 20px}
-
-/* ── HEADER ── */
-header{position:relative;z-index:10;padding:32px 0 0;text-align:center}
-.eyebrow{font-family:'Noto Sans JP',sans-serif;font-size:9px;font-weight:300;letter-spacing:.45em;color:var(--dim);text-transform:uppercase;margin-bottom:10px;opacity:0;animation:fadeD .7s .2s forwards}
-.title{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;letter-spacing:.04em;line-height:1.1;opacity:0;animation:fadeD .7s .4s forwards}
-.title-grad{background:linear-gradient(130deg,#c4748a 0%,#e8e8f0 45%,#7b68ee 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.subtitle{margin-top:12px;font-size:13px;font-weight:300;color:var(--text2);letter-spacing:.12em;opacity:0;animation:fadeD .7s .6s forwards}
-.divider{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--pink),transparent);margin:18px auto;opacity:0;animation:fadeIn .8s .8s forwards}
-@keyframes fadeD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* ── SEARCH ── */
-.search-wrap{display:flex;justify-content:center;margin:8px 0 28px;opacity:0;animation:fadeD .7s 1s forwards}
-.search{
-  display:flex;align-items:center;gap:10px;
-  background:var(--surface);border:1px solid var(--border);border-radius:50px;
-  padding:10px 20px;width:100%;max-width:400px;
-  transition:border-color .3s,box-shadow .3s;
+.ai{
+display:inline-block;
 }
-.search:focus-within{border-color:var(--border-neon);box-shadow:0 0 22px var(--neon-glow)}
-.search svg{flex-shrink:0;opacity:.35;color:var(--text2)}
-.search input{
-  background:none;border:none;outline:none;color:var(--text);
-  font-family:'Rajdhani',sans-serif;font-size:14px;letter-spacing:.05em;width:100%;
+
+.ai:hover{
+cursor:pointer;
+animation:aiFade 2.25s ease-in-out 1;
 }
-.search input::placeholder{color:var(--dim)}
 
-/* ── FILTERS ── */
-.filters{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:36px;opacity:0;animation:fadeIn .7s 1.2s forwards}
-.fbtn{
-  padding:5px 16px;border-radius:50px;border:1px solid var(--border);background:transparent;
-  color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
-  letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .22s;
+@keyframes aiFade{
+0%{opacity:1}
+50%{opacity:0.2}
+100%{opacity:1}
 }
-.fbtn:hover,.fbtn.active{border-color:var(--pink);color:var(--text)}
-.fbtn.active{color:rgba(196,116,138,.85);background:var(--pink-fill)}
 
-/* ── GRID ── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:60px}
+.hero-left, .hero-right{
+position:fixed;
+bottom:0;
+width:640px;
+opacity:.18;
+pointer-events:none;
+}
 
-/* ── CARD ── */
+.hero-left{left:0}
+.hero-right{right:0}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+}
+
 .card{
-  position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;
-  overflow:hidden;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s;
-  opacity:0;animation:cardIn .5s forwards;
+cursor:pointer;
+background:var(--card);
+border:1px solid #1c1c24;
+padding:22px;
+border-radius:14px;
+text-align:center;
+transition:.25s;
+position:relative;
 }
-.card:hover{transform:translateY(-5px) scale(1.01);border-color:var(--border-neon);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 28px var(--neon-glow)}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--card-bar,linear-gradient(90deg,transparent,rgba(123,104,238,.4),transparent));opacity:.45;transition:opacity .3s}
-.card:hover::before{opacity:1}
-.card.featured{grid-column:span 2;--card-bar:linear-gradient(90deg,transparent,rgba(196,116,138,.6),rgba(123,104,238,.5),transparent)}
-@media(max-width:620px){.card.featured{grid-column:span 1}}
-@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.1s}
-.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.2s}
-.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.3s}
-.card:nth-child(7){animation-delay:.35s}.card:nth-child(8){animation-delay:.4s}
-.card:nth-child(9){animation-delay:.45s}.card:nth-child(10){animation-delay:.5s}
-.card.hidden{display:none}
 
-.inner{padding:20px 18px 16px;flex:1;display:flex;flex-direction:column}
-.head{display:flex;align-items:center;gap:12px;margin-bottom:11px}
-.logo{
-  width:42px;height:42px;border-radius:9px;
-  background:rgba(0,0,0,.4);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;overflow:hidden;font-size:20px;
+.card:hover{
+transform:translateY(-4px);
+border-color:var(--accent);
+box-shadow:0 0 8px rgba(255,79,163,.25);
 }
-.logo img{width:26px;height:26px;object-fit:contain}
-.meta{flex:1;min-width:0}
-.name{font-family:'Cinzel',serif;font-size:14.5px;font-weight:600;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cat{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:2px}
-.badge{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:50px;border:1px solid rgba(196,116,138,.28);color:rgba(196,116,138,.8);background:var(--pink-fill);flex-shrink:0}
-.crown{position:absolute;top:12px;right:12px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:rgba(184,168,130,.07);border:1px solid rgba(184,168,130,.18);border-radius:4px;padding:2px 9px}
-.desc{font-size:12.5px;font-weight:400;color:var(--text2);line-height:1.55;flex:1}
-.foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
-.tags{display:flex;gap:5px;flex-wrap:wrap}
-.tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:3px;padding:2px 6px}
-.arrow{width:26px;height:26px;border-radius:7px;border:1px solid var(--border-neon);display:flex;align-items:center;justify-content:center;color:rgba(123,104,238,.8);flex-shrink:0;transition:background .2s}
-.card:hover .arrow{background:var(--neon-glow)}
 
-/* ── NO RESULTS ── */
-.nores{grid-column:1/-1;text-align:center;color:var(--dim);font-size:13px;letter-spacing:.1em;padding:40px;display:none}
-.nores.show{display:block}
-
-/* ── SCROLL TOP ── */
-.stbtn{
-  position:fixed;bottom:24px;right:24px;z-index:50;
-  width:38px;height:38px;border-radius:9px;background:var(--surface);
-  border:1px solid var(--border-neon);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:rgba(123,104,238,.8);opacity:0;transform:translateY(8px);
-  transition:opacity .3s,transform .3s,background .2s;
-  box-shadow:0 0 14px var(--neon-glow);
+.card img{
+width:44px;
+height:44px;
+margin-bottom:12px;
 }
-.stbtn.on{opacity:1;transform:translateY(0)}
-.stbtn:hover{background:var(--neon-glow)}
 
-/* ── TOAST ── */
-.toast{
-  position:fixed;top:16px;left:50%;
-  transform:translateX(-50%) translateY(-60px);
-  background:#14142a;border:1px solid var(--border-neon);
-  color:var(--text);font-size:12px;letter-spacing:.1em;
-  padding:10px 20px;border-radius:50px;z-index:200;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+.card h3{
+font-size:24px;
+margin-bottom:8px;
 }
-.toast.on{transform:translateX(-50%) translateY(0)}
 
-/* ── FOOTER ── */
-footer{position:relative;z-index:10;text-align:center;padding:28px 0 36px;border-top:1px solid var(--border)}
-.ft{font-size:10px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-.ft span{color:rgba(196,116,138,.6)}
+.card p{
+font-size:13px;
+color:var(--muted);
+}
 
-/* ── PARTICLES ── */
-.pt{position:absolute;border-radius:50%;opacity:0;animation:ptUp var(--d,8s) var(--dl,0s) infinite ease-in-out}
-@keyframes ptUp{0%{opacity:0;transform:translateY(0)}20%{opacity:var(--op,.3)}80%{opacity:var(--op,.3)}100%{opacity:0;transform:translateY(-70px) scale(.5)}}
+.card a{
+text-decoration:none;
+color:inherit;
+display:block;
+}
+
+footer{
+margin-top:60px;
+padding:30px;
+text-align:center;
+color:#6f7480;
+font-size:12px;
+}
+
+@media (max-width:900px){
+.hero-left,.hero-right{display:none}
+}
 </style>
 </head>
+
 <body>
 
-<!-- BG -->
-<div class="bg">
-  <svg class="bg-canvas" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <radialGradient id="gc" cx="50%" cy="38%" r="52%">
-        <stop offset="0%" stop-color="#0d0d20"/>
-        <stop offset="100%" stop-color="#050508"/>
-      </radialGradient>
-      <radialGradient id="gl" cx="8%" cy="85%" r="38%">
-        <stop offset="0%" stop-color="#180818" stop-opacity=".7"/>
-        <stop offset="100%" stop-color="transparent"/>
-      </radialGradient>
-      <radialGradient id="gr" cx="92%" cy="85%" r="38%">
-        <stop offset="0%" stop-color="#08081a" stop-opacity=".7"/>
-        <stop offset="100%" stop-color="transparent"/>
-      </radialGradient>
-      <filter id="nb"><feGaussianBlur stdDeviation="4"/></filter>
-    </defs>
-    <rect width="1440" height="900" fill="url(#gc)"/>
-    <rect width="1440" height="900" fill="url(#gl)"/>
-    <rect width="1440" height="900" fill="url(#gr)"/>
-    <!-- city silhouette -->
-    <g opacity=".1" fill="#0c0c0c">
-      <rect x="0" y="690" width="110" height="210"/>
-      <rect x="20" y="650" width="38" height="40"/>
-      <rect x="130" y="700" width="75" height="200"/>
-      <rect x="220" y="680" width="90" height="220"/>
-      <rect x="240" y="645" width="28" height="35"/>
-      <rect x="340" y="710" width="55" height="190"/>
-      <rect x="1000" y="680" width="110" height="220"/>
-      <rect x="1020" y="644" width="38" height="36"/>
-      <rect x="1130" y="700" width="80" height="200"/>
-      <rect x="1230" y="690" width="95" height="210"/>
-      <rect x="1250" y="655" width="28" height="35"/>
-      <rect x="1340" y="710" width="100" height="190"/>
-    </g>
-    <!-- neon horizon (very subtle) -->
-    <line x1="0" y1="724" x2="1440" y2="724" stroke="rgba(123,104,238,0.035)" stroke-width="1"/>
-    <!-- ambient orbs -->
-    <circle cx="720" cy="140" r="130" fill="rgba(123,104,238,0.025)" filter="url(#nb)"/>
-    <circle cx="160" cy="420" r="80" fill="rgba(196,116,138,0.03)" filter="url(#nb)"/>
-    <circle cx="1280" cy="400" r="80" fill="rgba(100,80,210,0.03)" filter="url(#nb)"/>
-    <!-- stars -->
-    <g fill="white" opacity=".2">
-      <circle cx="90" cy="45" r=".7"/><circle cx="320" cy="28" r=".5"/><circle cx="560" cy="75" r=".8"/>
-      <circle cx="790" cy="18" r=".6"/><circle cx="940" cy="55" r=".7"/><circle cx="1080" cy="38" r=".5"/>
-      <circle cx="1290" cy="68" r=".8"/><circle cx="195" cy="115" r=".5"/><circle cx="440" cy="95" r=".6"/>
-      <circle cx="690" cy="125" r=".7"/><circle cx="990" cy="85" r=".5"/><circle cx="1240" cy="105" r=".6"/>
-      <circle cx="380" cy="55" r=".4"/><circle cx="850" cy="40" r=".5"/><circle cx="1150" cy="88" r=".4"/>
-    </g>
-  </svg>
-</div>
-<div class="grid-lines"></div>
+<img class="hero-left" src="https://i.imgur.com/3ZQ3Z9y.png">
+<img class="hero-right" src="https://i.imgur.com/9Xn4K8v.png">
 
-<!-- CHARACTER LEFT: dark-haired male cyberpunk -->
-<svg class="char char-l" viewBox="0 0 240 560" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="al" cx="50%" cy="72%" r="50%">
-      <stop offset="0%" stop-color="rgba(123,104,238,0.1)"/>
-      <stop offset="100%" stop-color="transparent"/>
-    </radialGradient>
-    <filter id="gbl"><feGaussianBlur stdDeviation="3"/></filter>
-  </defs>
-  <ellipse cx="120" cy="420" rx="85" ry="120" fill="url(#al)"/>
-  <!-- Coat -->
-  <path d="M50 270 Q38 330 34 420 Q30 480 28 550 L92 550 Q94 460 100 375" fill="#080812"/>
-  <path d="M190 270 Q202 330 206 420 Q210 480 212 550 L148 550 Q146 460 140 375" fill="#080812"/>
-  <path d="M70 265 Q120 290 170 265 L165 345 Q120 372 75 345Z" fill="#0c0c1a"/>
-  <!-- neon coat edge -->
-  <path d="M50 270 Q38 360 32 460" fill="none" stroke="rgba(123,104,238,0.18)" stroke-width="1.5"/>
-  <path d="M190 270 Q202 360 208 460" fill="none" stroke="rgba(123,104,238,0.12)" stroke-width="1.5"/>
-  <!-- belt -->
-  <rect x="72" y="295" width="96" height="7" rx="2" fill="#14142a"/>
-  <rect x="113" y="293" width="14" height="11" rx="2" fill="#1e1e36"/>
-  <!-- torso -->
-  <rect x="78" y="228" width="84" height="72" rx="4" fill="#0b0b18"/>
-  <!-- neck -->
-  <rect x="108" y="196" width="24" height="36" rx="4" fill="#181220"/>
-  <!-- head -->
-  <ellipse cx="120" cy="170" rx="40" ry="46" fill="#1b1322"/>
-  <ellipse cx="120" cy="175" rx="34" ry="38" fill="#1e1525"/>
-  <path d="M94 192 Q102 224 120 232 Q138 224 146 192" fill="#1b1322"/>
-  <!-- dark hair -->
-  <path d="M84 152 Q74 112 82 88 Q92 64 120 58 Q148 58 158 82 Q166 106 160 140" fill="#0b0a12"/>
-  <path d="M84 152 Q74 142 70 125 Q67 108 74 96" fill="#0a0910"/>
-  <path d="M160 140 Q168 128 170 108 Q170 90 164 80" fill="#0a0910"/>
-  <path d="M96 140 Q88 112 94 88 Q102 70 114 62" fill="none" stroke="#18172a" stroke-width="2.5"/>
-  <!-- forelock -->
-  <path d="M100 62 Q110 52 120 50 Q130 48 120 62" fill="#0b0a12"/>
-  <!-- eyes -->
-  <ellipse cx="104" cy="174" rx="9" ry="6.5" fill="#08081a"/>
-  <ellipse cx="136" cy="174" rx="9" ry="6.5" fill="#08081a"/>
-  <ellipse cx="104" cy="174" rx="6.5" ry="5" fill="#182060"/>
-  <ellipse cx="136" cy="174" rx="6.5" ry="5" fill="#182060"/>
-  <ellipse cx="105" cy="174" rx="3.5" ry="3.5" fill="#040410"/>
-  <ellipse cx="137" cy="174" rx="3.5" ry="3.5" fill="#040410"/>
-  <circle cx="106" cy="171" r="1.4" fill="rgba(255,255,255,.55)"/>
-  <circle cx="138" cy="171" r="1.4" fill="rgba(255,255,255,.55)"/>
-  <path d="M95 168 Q104 163 113 168" fill="none" stroke="#06060e" stroke-width="1.8"/>
-  <path d="M127 168 Q136 163 145 168" fill="none" stroke="#06060e" stroke-width="1.8"/>
-  <!-- nose / mouth -->
-  <path d="M117 188 L120 194 L123 188" fill="none" stroke="#281e30" stroke-width="1.4"/>
-  <path d="M111 204 Q116 208 122 206 Q128 204 132 206" fill="none" stroke="#281e30" stroke-width="1.3"/>
-  <!-- earring neon -->
-  <circle cx="82" cy="181" r="2.2" fill="rgba(123,104,238,.65)"/>
-  <circle cx="82" cy="181" r="1.2" fill="rgba(180,160,255,.9)"/>
-  <!-- arms -->
-  <path d="M78 232 Q64 260 60 308 Q57 348 60 375" fill="#080812" stroke="#14142a" stroke-width="1"/>
-  <path d="M162 232 Q176 260 180 308 Q183 348 180 375" fill="#080812" stroke="#14142a" stroke-width="1"/>
-  <ellipse cx="60" cy="384" rx="14" ry="18" fill="#0a0a16"/>
-  <circle cx="58" cy="374" r="7" fill="rgba(123,104,238,.12)" filter="url(#gbl)"/>
-  <ellipse cx="180" cy="384" rx="14" ry="18" fill="#0a0a16"/>
-  <!-- circuit detail -->
-  <line x1="66" y1="290" x2="66" y2="314" stroke="rgba(123,104,238,.18)" stroke-width="1"/>
-  <line x1="63" y1="302" x2="73" y2="302" stroke="rgba(123,104,238,.18)" stroke-width="1"/>
-  <!-- pants + boots -->
-  <rect x="81" y="354" width="32" height="196" rx="3" fill="#070710"/>
-  <rect x="127" y="354" width="32" height="196" rx="3" fill="#070710"/>
-  <rect x="77" y="480" width="40" height="70" rx="4" fill="#08081a"/>
-  <rect x="123" y="480" width="40" height="70" rx="4" fill="#08081a"/>
-  <line x1="77" y1="548" x2="117" y2="548" stroke="rgba(123,104,238,.25)" stroke-width="1.8"/>
-  <line x1="123" y1="548" x2="163" y2="548" stroke="rgba(123,104,238,.25)" stroke-width="1.8"/>
-</svg>
+<header>
+<h1><span class="ai">AI</span> инструменты</h1>
+</header>
 
-<!-- CHARACTER RIGHT: red-haired female cyberpunk (mirrored) -->
-<svg class="char char-r" viewBox="0 0 240 560" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="ar" cx="50%" cy="72%" r="50%">
-      <stop offset="0%" stop-color="rgba(196,116,138,0.09)"/>
-      <stop offset="100%" stop-color="transparent"/>
-    </radialGradient>
-    <filter id="gbr"><feGaussianBlur stdDeviation="3"/></filter>
-  </defs>
-  <ellipse cx="120" cy="420" rx="85" ry="120" fill="url(#ar)"/>
-  <!-- Qipao-coat hybrid -->
-  <path d="M58 255 Q44 310 40 405 Q36 472 34 550 L96 550 Q98 460 104 368" fill="#0b0812"/>
-  <path d="M182 255 Q196 310 200 405 Q204 472 206 550 L144 550 Q142 460 136 368" fill="#0b0812"/>
-  <!-- bodice overlay -->
-  <path d="M76 255 Q120 278 164 255 L159 345 Q120 370 81 345Z" fill="#0f0a1a"/>
-  <!-- collar knot -->
-  <circle cx="120" cy="252" r="5.5" fill="#190e22"/>
-  <line x1="116" y1="252" x2="107" y2="264" stroke="#281828" stroke-width="1.5"/>
-  <line x1="124" y1="252" x2="133" y2="264" stroke="#281828" stroke-width="1.5"/>
-  <!-- neon trim (pink) -->
-  <path d="M58 255 Q44 355 36 462" fill="none" stroke="rgba(196,116,138,.18)" stroke-width="1.5"/>
-  <path d="M182 255 Q196 355 204 462" fill="none" stroke="rgba(196,116,138,.13)" stroke-width="1.5"/>
-  <!-- neck -->
-  <rect x="109" y="196" width="22" height="34" rx="4" fill="#1a1222"/>
-  <!-- head -->
-  <ellipse cx="120" cy="169" rx="38" ry="44" fill="#1c1423"/>
-  <ellipse cx="120" cy="174" rx="32" ry="36" fill="#1f1526"/>
-  <path d="M96 190 Q104 220 120 228 Q136 220 144 190" fill="#1c1423"/>
-  <!-- red-auburn hair -->
-  <path d="M86 148 Q74 104 80 72 Q90 42 120 35 Q152 35 162 68 Q170 96 164 136" fill="#461808"/>
-  <path d="M86 148 Q68 162 62 205 Q57 248 62 288" fill="#38140a"/>
-  <path d="M164 136 Q178 152 182 198 Q186 240 180 276" fill="#38140a"/>
-  <path d="M92 138 Q82 106 88 76 Q96 52 110 42" fill="none" stroke="#621e0a" stroke-width="2.5"/>
-  <path d="M120 34 Q142 31 158 44 Q168 56 166 78" fill="none" stroke="#521806" stroke-width="2"/>
-  <!-- bangs -->
-  <path d="M94 96 Q102 72 112 66 Q120 62 120 68" fill="#461808"/>
-  <path d="M104 80 Q114 60 124 57 Q138 55 148 64 Q156 74 152 90" fill="#38140a"/>
-  <!-- hair ornament -->
-  <circle cx="148" cy="100" r="3.5" fill="#1c1022"/>
-  <circle cx="148" cy="100" r="2" fill="rgba(196,116,138,.55)"/>
-  <line x1="148" y1="103.5" x2="148" y2="120" stroke="rgba(196,116,138,.28)" stroke-width="1"/>
-  <circle cx="148" cy="122" r="1.8" fill="rgba(196,116,138,.38)"/>
-  <!-- eyes -->
-  <ellipse cx="102" cy="172" rx="10" ry="7.5" fill="#080612"/>
-  <ellipse cx="138" cy="172" rx="10" ry="7.5" fill="#080612"/>
-  <ellipse cx="102" cy="172" rx="7" ry="5.5" fill="#551a0e"/>
-  <ellipse cx="138" cy="172" rx="7" ry="5.5" fill="#551a0e"/>
-  <ellipse cx="103" cy="172" rx="3.8" ry="4" fill="#040308"/>
-  <ellipse cx="139" cy="172" rx="3.8" ry="4" fill="#040308"/>
-  <circle cx="105" cy="169" r="1.8" fill="rgba(255,255,255,.6)"/>
-  <circle cx="141" cy="169" r="1.8" fill="rgba(255,255,255,.6)"/>
-  <path d="M92 165 Q102 160 112 165" fill="none" stroke="#060410" stroke-width="2.2"/>
-  <path d="M128 165 Q138 160 148 165" fill="none" stroke="#060410" stroke-width="2.2"/>
-  <path d="M93 180 Q102 184 111 181" fill="none" stroke="#180e20" stroke-width=".9"/>
-  <path d="M129 180 Q138 184 147 181" fill="none" stroke="#180e20" stroke-width=".9"/>
-  <!-- nose / mouth / lip -->
-  <path d="M117 190 L120 196 L123 190" fill="none" stroke="#26182e" stroke-width="1.3"/>
-  <path d="M110 207 Q116 212 122 211 Q128 212 130 207" fill="none" stroke="#361a28" stroke-width="1.4"/>
-  <ellipse cx="120" cy="209" rx="7" ry="2.5" fill="rgba(196,116,138,.1)"/>
-  <!-- earring -->
-  <circle cx="84" cy="179" r="1.8" fill="rgba(196,116,138,.45)"/>
-  <line x1="84" y1="181" x2="84" y2="192" stroke="rgba(196,116,138,.28)" stroke-width=".9"/>
-  <ellipse cx="84" cy="194" rx="2.5" ry="1.5" fill="rgba(196,116,138,.32)"/>
-  <!-- arms -->
-  <path d="M76 236 Q62 264 58 312 Q54 354 57 380" fill="#0b0812" stroke="#1c1228" stroke-width="1"/>
-  <path d="M164 236 Q178 264 182 312 Q186 354 183 380" fill="#0b0812" stroke="#1c1228" stroke-width="1"/>
-  <ellipse cx="57" cy="390" rx="13" ry="17" fill="#0a0a18"/>
-  <circle cx="55" cy="386" r="7" fill="rgba(196,116,138,.07)" filter="url(#gbr)"/>
-  <ellipse cx="183" cy="390" rx="13" ry="17" fill="#0a0a18"/>
-  <!-- dress slit -->
-  <path d="M120 375 L93 550 L107 550 L120 395 L133 550 L147 550 L120 375" fill="#090810"/>
-  <!-- thigh line -->
-  <line x1="96" y1="456" x2="104" y2="456" stroke="rgba(196,116,138,.13)" stroke-width="1"/>
-  <line x1="136" y1="456" x2="144" y2="456" stroke="rgba(196,116,138,.13)" stroke-width="1"/>
-  <!-- boots -->
-  <rect x="84" y="498" width="32" height="52" rx="4" fill="#08060e"/>
-  <rect x="124" y="498" width="32" height="52" rx="4" fill="#08060e"/>
-  <line x1="84" y1="548" x2="116" y2="548" stroke="rgba(196,116,138,.22)" stroke-width="1.8"/>
-  <line x1="124" y1="548" x2="156" y2="548" stroke="rgba(196,116,138,.22)" stroke-width="1.8"/>
-</svg>
+<div class="container">
 
-<!-- MAIN -->
-<div class="wrap">
+<div class="grid" id="grid">
 
-  <header>
-    <p class="eyebrow">ニューラルネットワーク · 2025 · Neural Networks</p>
-    <h1 class="title"><span class="title-grad">AI Universe</span></h1>
-    <p class="subtitle">Бесплатные нейросети для творчества и работы</p>
-    <div class="divider"></div>
-  </header>
-
-  <!-- SEARCH -->
-  <div class="search-wrap">
-    <div class="search">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input id="si" type="text" placeholder="Поиск... (/ для фокуса)">
-    </div>
-  </div>
-
-  <!-- FILTERS -->
-  <div class="filters">
-    <button class="fbtn active" data-f="all">Все</button>
-    <button class="fbtn" data-f="chat">Чат &amp; Текст</button>
-    <button class="fbtn" data-f="image">Изображения</button>
-    <button class="fbtn" data-f="audio">Аудио</button>
-    <button class="fbtn" data-f="code">Код</button>
-    <button class="fbtn" data-f="video">Видео</button>
-  </div>
-
-  <!-- GRID -->
-  <div class="grid" id="grid">
-
-    <!-- 1 CLAUDE featured -->
-    <a class="card featured" href="https://claude.ai" target="_blank" rel="noopener" data-n="claude" data-f="chat">
-      <div class="crown">★ Top Pick</div>
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=64" alt="Claude" onerror="this.style.display='none';this.parentNode.innerText='🤖'"></div>
-          <div class="meta"><div class="name">Claude</div><div class="cat">by Anthropic</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Глубокий анализ, длинный контекст до 200k токенов, творческое письмо и точный код. Один из самых продвинутых и безопасных AI-ассистентов.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Чат</span><span class="tag">Анализ</span><span class="tag">Код</span><span class="tag">Письмо</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 2 ChatGPT -->
-    <a class="card" href="https://chat.openai.com" target="_blank" rel="noopener" data-n="chatgpt" data-f="chat">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=chat.openai.com&sz=64" alt="ChatGPT" onerror="this.parentNode.innerText='💬'"></div>
-          <div class="meta"><div class="name">ChatGPT</div><div class="cat">by OpenAI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">GPT-4o бесплатно: поиск в интернете, генерация изображений DALL·E и голосовой режим в одном интерфейсе.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Чат</span><span class="tag">Поиск</span><span class="tag">Голос</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 3 Gemini -->
-    <a class="card" href="https://gemini.google.com" target="_blank" rel="noopener" data-n="gemini google" data-f="chat">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64" alt="Gemini" onerror="this.parentNode.innerText='✨'"></div>
-          <div class="meta"><div class="name">Gemini</div><div class="cat">by Google</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Мультимодальный AI с интеграцией в Google Workspace, поиском в реальном времени и анализом файлов и изображений.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Чат</span><span class="tag">Мультимод</span><span class="tag">Google</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 4 Midjourney -->
-    <a class="card" href="https://www.midjourney.com" target="_blank" rel="noopener" data-n="midjourney арт арт дизайн" data-f="image">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=64" alt="Midjourney" onerror="this.parentNode.innerText='🎨'"></div>
-          <div class="meta"><div class="name">Midjourney</div><div class="cat">Image AI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Высочайшее качество AI-арта. Фантастические, реалистичные и стилизованные изображения по текстовому описанию.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Арт</span><span class="tag">Дизайн</span><span class="tag">Discord</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 5 Stable Diffusion -->
-    <a class="card" href="https://stability.ai" target="_blank" rel="noopener" data-n="stable diffusion stability изображения" data-f="image">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=stability.ai&sz=64" alt="Stable Diffusion" onerror="this.parentNode.innerText='🖼️'"></div>
-          <div class="meta"><div class="name">Stable Diffusion</div><div class="cat">by Stability AI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Открытая модель для генерации изображений. Локальный запуск, полный контроль и безлимитные генерации.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Open Source</span><span class="tag">Локально</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 6 ElevenLabs -->
-    <a class="card" href="https://elevenlabs.io" target="_blank" rel="noopener" data-n="elevenlabs голос tts аудио" data-f="audio">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=64" alt="ElevenLabs" onerror="this.parentNode.innerText='🎙️'"></div>
-          <div class="meta"><div class="name">ElevenLabs</div><div class="cat">Voice AI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Реалистичный синтез и клонирование голоса. 29 языков, 10 000 символов бесплатно каждый месяц.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Голос</span><span class="tag">TTS</span><span class="tag">Клон</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 7 GitHub Copilot -->
-    <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noopener" data-n="copilot github код code" data-f="code">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="Copilot" onerror="this.parentNode.innerText='💻'"></div>
-          <div class="meta"><div class="name">GitHub Copilot</div><div class="cat">by GitHub · Microsoft</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">AI прямо в редакторе кода. Автодополнение, генерация функций и рефакторинг — бесплатно для студентов и open-source.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Код</span><span class="tag">IDE</span><span class="tag">VSCode</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 8 Perplexity -->
-    <a class="card" href="https://www.perplexity.ai" target="_blank" rel="noopener" data-n="perplexity поиск исследования" data-f="chat">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64" alt="Perplexity" onerror="this.parentNode.innerText='🔍'"></div>
-          <div class="meta"><div class="name">Perplexity</div><div class="cat">Search AI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">AI-поисковик с реальными источниками и цитатами. Лучший инструмент для исследований и актуальной информации.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Поиск</span><span class="tag">Исследования</span><span class="tag">Факты</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 9 Runway -->
-    <a class="card" href="https://runwayml.com" target="_blank" rel="noopener" data-n="runway видео video" data-f="video">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=64" alt="Runway" onerror="this.parentNode.innerText='🎬'"></div>
-          <div class="meta"><div class="name">Runway</div><div class="cat">Video AI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Генерация и редактирование видео по тексту и изображениям. Профессиональный инструмент для визуального сторителлинга.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Видео</span><span class="tag">Gen-2</span><span class="tag">Творчество</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <!-- 10 Suno -->
-    <a class="card" href="https://suno.com" target="_blank" rel="noopener" data-n="suno музыка music аудио" data-f="audio">
-      <div class="inner">
-        <div class="head">
-          <div class="logo"><img src="https://www.google.com/s2/favicons?domain=suno.com&sz=64" alt="Suno" onerror="this.parentNode.innerText='🎵'"></div>
-          <div class="meta"><div class="name">Suno</div><div class="cat">Music AI</div></div>
-          <span class="badge">Free</span>
-        </div>
-        <p class="desc">Полноценные музыкальные треки по текстовому описанию за секунды. Любой жанр, вокал и инструментал.</p>
-        <div class="foot">
-          <div class="tags"><span class="tag">Музыка</span><span class="tag">Вокал</span><span class="tag">Творчество</span></div>
-          <div class="arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
-        </div>
-      </div>
-    </a>
-
-    <div class="nores" id="nores">Ничего не найдено</div>
-  </div>
+<div class="card">
+<a href="https://claude.ai" target="_blank">
+<img src="https://cdn.simpleicons.org/anthropic/ffffff">
+<h3>Claude</h3>
+<p>Мощная AI модель для работы и творчества</p>
+</a>
 </div>
 
-<!-- SCROLL TOP -->
-<button class="stbtn" id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<div class="card">
+<a href="https://chat.openai.com" target="_blank">
+<img src="https://cdn.simpleicons.org/openai/ffffff">
+<h3>ChatGPT</h3>
+<p>Универсальный AI помощник</p>
+</a>
+</div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">Ссылка скопирована ✓</div>
+<div class="card">
+<a href="https://gemini.google.com" target="_blank">
+<img src="https://cdn.simpleicons.org/google/ffffff">
+<h3>Gemini</h3>
+<p>Нейросеть Google</p>
+</a>
+</div>
 
-<footer><div class="wrap"><p class="ft">AI Universe · <span>2025</span> · Клик — переход · ПКМ — скопировать ссылку</p></div></footer>
+<div class="card">
+<a href="https://www.perplexity.ai" target="_blank">
+<img src="https://cdn.simpleicons.org/perplexity/ffffff">
+<h3>Perplexity</h3>
+<p>AI поиск нового поколения</p>
+</a>
+</div>
 
-<script>
-// Filter + search
-const cards=document.querySelectorAll('.card[data-f]'),nores=document.getElementById('nores'),si=document.getElementById('si');
-function run(){
-  const af=document.querySelector('.fbtn.active').dataset.f;
-  const q=si.value.toLowerCase().trim();
-  let v=0;
-  cards.forEach(c=>{
-    const mf=af==='all'||c.dataset.f===af;
-    const mn=!q||(c.dataset.n||'').includes(q)||(c.querySelector('.desc')?.textContent.toLowerCase()||'').includes(q);
-    c.classList.toggle('hidden',!(mf&&mn));
-    if(mf&&mn)v++;
-  });
-  nores.classList.toggle('show',v===0);
-}
-document.querySelectorAll('.fbtn').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');run();
-  });
-});
-si.addEventListener('input',run);
+<div class="card">
+<a href="https://leonardo.ai" target="_blank">
+<img src="https://cdn.simpleicons.org/leonardo/ffffff">
+<h3>Leonardo AI</h3>
+<p>Генерация изображений</p>
+</a>
+</div>
 
-// Right-click copy
-cards.forEach(c=>{
-  c.addEventListener('contextmenu',e=>{
-    e.preventDefault();
-    navigator.clipboard?.writeText(c.href).catch(()=>{});
-    const t=document.getElementById('toast');
-    t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);
-  });
-});
+<div class="card">
+<a href="https://runwayml.com" target="_blank">
+<img src="https://cdn.simpleicons.org/runway/ffffff">
+<h3>Runway</h3>
+<p>Видео генерация AI</p>
+</a>
+</div>
 
-// Scroll top
-window.addEventListener('scroll',()=>document.getElementById('stb').classList.toggle('on',scrollY>280));
+<div class="card">
+<a href="https://poe.com" target="_blank">
+<img src="https://cdn.simpleicons.org/quora/ffffff">
+<h3>Poe</h3>
+<p>Доступ к разным моделям</p>
+</a>
+</div>
 
-// Keyboard shortcut
-document.addEventListener('keydown',e=>{
-  if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();si.focus();}
-  if(e.key==='Escape')si.blur();
-});
+<div class="card">
+<a href="https://huggingface.co" target="_blank">
+<img src="https://cdn.simpleicons.org/huggingface/ffffff">
+<h3>HuggingFace</h3>
+<p>Открытые AI модели</p>
+</a>
+</div>
 
-// Particles
-(function(){
-  const bg=document.querySelector('.bg');
-  const cols=['rgba(123,104,238,.22)','rgba(196,116,138,.18)','rgba(255,255,255,.12)'];
-  for(let i=0;i<20;i++){
-    const p=document.createElement('div');
-    p.className='pt';
-    const s=Math.random()*2.8+.8;
-    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;top:${38+Math.random()*55}%;background:${cols[Math.floor(Math.random()*cols.length)]};--d:${6+Math.random()*11}s;--dl:${Math.random()*9}s;--op:${.18+Math.random()*.28};`;
-    bg.appendChild(p);
-  }
-})();
-</script>
+<div class="card">
+<a href="https://www.canva.com" target="_blank">
+<img src="https://cdn.simpleicons.org/canva/ffffff">
+<h3>Canva AI</h3>
+<p>Дизайн и генерация</p>
+</a>
+</div>
+
+<div class="card">
+<a href="https://notion.so" target="_blank">
+<img src="https://cdn.simpleicons.org/notion/ffffff">
+<h3>Notion AI</h3>
+<p>AI заметки и планирование</p>
+</a>
+</div>
+
+<div class="card">
+<a href="https://deepseek.com" target="_blank">
+<img src="https://cdn.simpleicons.org/deepseek/ffffff">
+<h3>DeepSeek</h3>
+<p>Мощная open AI модель</p>
+</a>
+</div>
+
+<div class="card">
+<a href="https://krea.ai" target="_blank">
+<img src="https://cdn.simpleicons.org/krea/ffffff">
+<h3>Krea AI</h3>
+<p>Генерация изображений и видео</p>
+</a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+Минималистичный портал AI инструментов
+</footer>
+
 </body>
 </html>
