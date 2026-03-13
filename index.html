@@ -1,246 +1,199 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tools Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{
---bg:#0b0b0f;
---card:#121218;
---accent:#ff4fa3;
---text:#e8e8f0;
---muted:#9aa0aa;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools Portal</title>
 
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Inter, sans-serif;
-background:radial-gradient(circle at 20% 20%, #16161f, #0b0b0f 60%);
-color:var(--text);
-min-height:100vh;
-overflow-x:hidden;
-}
-
-header{
-padding:40px 20px;
-text-align:center;
-}
-
-h1{
-font-weight:600;
-letter-spacing:1px;
-}
-
-.ai{
-display:inline-block;
-}
-
-.ai:hover{
-cursor:pointer;
-animation:aiFade 2.25s ease-in-out 1;
-}
-
-@keyframes aiFade{
-0%{opacity:1}
-50%{opacity:0.2}
-100%{opacity:1}
-}
-
-.hero-left, .hero-right{
-position:fixed;
-bottom:0;
-width:640px;
-opacity:.18;
-pointer-events:none;
-}
-
-.hero-left{left:0}
-.hero-right{right:0}
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:18px;
-}
-
-.card{
-cursor:pointer;
-background:var(--card);
-border:1px solid #1c1c24;
-padding:22px;
-border-radius:14px;
-text-align:center;
-transition:.25s;
-position:relative;
-}
-
-.card:hover{
-transform:translateY(-4px);
-border-color:var(--accent);
-box-shadow:0 0 8px rgba(255,79,163,.25);
-}
-
-.card img{
-width:44px;
-height:44px;
-margin-bottom:12px;
-}
-
-.card h3{
-font-size:24px;
-margin-bottom:8px;
-}
-
-.card p{
-font-size:13px;
-color:var(--muted);
-}
-
-.card a{
-text-decoration:none;
-color:inherit;
-display:block;
-}
-
-footer{
-margin-top:60px;
-padding:30px;
-text-align:center;
-color:#6f7480;
-font-size:12px;
-}
-
-@media (max-width:900px){
-.hero-left,.hero-right{display:none}
-}
-</style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
+<body id="top">
 
-<img class="hero-left" src="https://i.imgur.com/3ZQ3Z9y.png">
-<img class="hero-right" src="https://i.imgur.com/9Xn4K8v.png">
+  <img class="hero-left" src="https://i.imgur.com/3ZQ3Z9y.png" alt="">
+  <img class="hero-right" src="https://i.imgur.com/9Xn4K8v.png" alt="">
 
-<header>
-<h1><span class="ai">AI</span> инструменты</h1>
+  <header>
+
+  <div class="header-inner">
+
+    <div class="header-left">
+
+    <h1>
+        <a href="#top" class="site-title">AI инструменты</a>
+     </h1>
+
+      <div class="menu-desktop">
+        <a href="#top">Главная</a>
+        <a href="#contacts">Контакты</a>
+        <span class="refresh-btn" onclick="location.reload()" title="Обновить страницу">
+  <img src="https://fonts.gstatic.com/s/i/materialicons/refresh/v6/24px.svg" alt="">
+</span>
+      </div>
+
+    </div>
+
+    <div class="burger" onclick="toggleMenu(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  </div>
+
 </header>
 
-<div class="container">
-
-<div class="grid" id="grid">
-
-<div class="card">
-<a href="https://claude.ai" target="_blank">
-<img src="https://cdn.simpleicons.org/anthropic/ffffff">
-<h3>Claude</h3>
-<p>Мощная AI модель для работы и творчества</p>
-</a>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#top">Главная</a>
+    <a href="#contacts">Контакты</a>
 </div>
 
-<div class="card">
-<a href="https://chat.openai.com" target="_blank">
-<img src="https://cdn.simpleicons.org/openai/ffffff">
-<h3>ChatGPT</h3>
-<p>Универсальный AI помощник</p>
-</a>
-</div>
+  <div class="container">
+    <div class="grid" id="grid">
 
-<div class="card">
-<a href="https://gemini.google.com" target="_blank">
-<img src="https://cdn.simpleicons.org/google/ffffff">
-<h3>Gemini</h3>
-<p>Нейросеть Google</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/anthropic/ffffff" alt="Claude">
+          <h3>Claude</h3>
+          <p>Мощная AI модель для работы и творчества</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://www.perplexity.ai" target="_blank">
-<img src="https://cdn.simpleicons.org/perplexity/ffffff">
-<h3>Perplexity</h3>
-<p>AI поиск нового поколения</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">
+          <img src="img/ai-icon.svg" alt="ChatGPT">
+          <h3>ChatGPT</h3>
+          <p>Универсальный AI помощник</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://leonardo.ai" target="_blank">
-<img src="https://cdn.simpleicons.org/leonardo/ffffff">
-<h3>Leonardo AI</h3>
-<p>Генерация изображений</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/google/ffffff" alt="Gemini">
+          <h3>Gemini</h3>
+          <p>Нейросеть Google</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://runwayml.com" target="_blank">
-<img src="https://cdn.simpleicons.org/runway/ffffff">
-<h3>Runway</h3>
-<p>Видео генерация AI</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/perplexity/ffffff" alt="Perplexity">
+          <h3>Perplexity</h3>
+          <p>AI поиск нового поколения</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://poe.com" target="_blank">
-<img src="https://cdn.simpleicons.org/quora/ffffff">
-<h3>Poe</h3>
-<p>Доступ к разным моделям</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://leonardo.ai" target="_blank" rel="noopener noreferrer">
+          <img src="img/ai-icon.svg" alt="Leonardo AI">
+          <h3>Leonardo AI</h3>
+          <p>Генерация изображений</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://huggingface.co" target="_blank">
-<img src="https://cdn.simpleicons.org/huggingface/ffffff">
-<h3>HuggingFace</h3>
-<p>Открытые AI модели</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://runwayml.com" target="_blank" rel="noopener noreferrer">
+          <img src="img/ai-icon.svg" alt="Runway">
+          <h3>Runway</h3>
+          <p>Видео генерация AI</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://www.canva.com" target="_blank">
-<img src="https://cdn.simpleicons.org/canva/ffffff">
-<h3>Canva AI</h3>
-<p>Дизайн и генерация</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://poe.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/quora/ffffff" alt="Poe">
+          <h3>Poe</h3>
+          <p>Доступ к разным моделям</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://notion.so" target="_blank">
-<img src="https://cdn.simpleicons.org/notion/ffffff">
-<h3>Notion AI</h3>
-<p>AI заметки и планирование</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/huggingface/ffffff" alt="HuggingFace">
+          <h3>HuggingFace</h3>
+          <p>Открытые AI модели</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://deepseek.com" target="_blank">
-<img src="https://cdn.simpleicons.org/deepseek/ffffff">
-<h3>DeepSeek</h3>
-<p>Мощная open AI модель</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer">
+          <img src="img/ai-icon.svg" alt="Canva AI">
+          <h3>Canva AI</h3>
+          <p>Дизайн и генерация</p>
+        </a>
+      </div>
 
-<div class="card">
-<a href="https://krea.ai" target="_blank">
-<img src="https://cdn.simpleicons.org/krea/ffffff">
-<h3>Krea AI</h3>
-<p>Генерация изображений и видео</p>
-</a>
-</div>
+      <div class="card">
+        <a href="https://notion.so" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/notion/ffffff" alt="Notion AI">
+          <h3>Notion AI</h3>
+          <p>AI заметки и планирование</p>
+        </a>
+      </div>
 
-</div>
+      <div class="card">
+        <a href="https://deepseek.com" target="_blank" rel="noopener noreferrer">
+          <img src="img/ai-icon.svg" alt="DeepSeek">
+          <h3>DeepSeek</h3>
+          <p>Мощная open AI модель</p>
+        </a>
+      </div>
 
-</div>
+      <div class="card">
+        <a href="https://krea.ai" target="_blank" rel="noopener noreferrer">
+          <img src="img/ai-icon.svg" alt="Krea AI">
+          <h3>Krea AI</h3>
+          <p>Генерация изображений и видео</p>
+        </a>
+      </div>
 
-<footer>
-Минималистичный портал AI инструментов
-</footer>
+    </div>
+  </div>
+     <section class="contacts-section" id="contacts">
+  <div class="container">
+    <h2>Контакты</h2>
+    <div class="grid contacts-grid">
 
+      <div class="card">
+        <a href="https://t.me/your_link" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/telegram/ffffff" alt="Telegram">
+          <h3>Telegram</h3>
+          <p>Связь и быстрые обновления</p>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="https://discord.com/invite/your_link" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/discord/ffffff" alt="Discord">
+          <h3>Discord</h3>
+          <p>Сообщество и общение</p>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="https://www.tiktok.com/@your_link" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok">
+          <h3>TikTok</h3>
+          <p>Короткие видео и контент</p>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="https://www.youtube.com/@your_link" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.simpleicons.org/youtube/ffffff" alt="YouTube">
+          <h3>YouTube</h3>
+          <p>Видео, обзоры и полезные материалы</p>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+  <footer>
+    Минималистичный портал AI инструментов
+  </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
