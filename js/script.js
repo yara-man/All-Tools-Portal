@@ -288,6 +288,159 @@ const tickerWrap = document.getElementById("tickerWrap");
 const tickerTrack = document.getElementById("tickerTrack");
 
 if (tickerWrap && tickerTrack) {
+  const originalItems = Array.from(tickerTrack.children);
+  const gap = 14;
+
+  originalItems.forEach(item => {
+    tickerTrack.appendChild(item.cloneNode(true));
+  });
+
+  let currentX = 0;
+  let itemSetWidth = 0;
+
+  let isDragging = false;
+  let startX = 0;
+  let dragStartX = 0;
+
+  let pausedUntil = 0;
+  let autoSpeed = 0.35;
+
+  let velocityX = 0;
+  let lastPointerX = 0;
+  let lastPointerTime = 0;
+
+  function measureWidth() {
+    itemSetWidth = 0;
+
+    for (let i = 0; i < originalItems.length; i++) {
+      itemSetWidth += originalItems[i].offsetWidth;
+    }
+
+    itemSetWidth += gap * originalItems.length;
+  }
+
+  function setPosition() {
+    tickerTrack.style.transform = `translate3d(${currentX}px, 0, 0)`;
+  }
+
+  function normalizeLoop() {
+    if (Math.abs(currentX) >= itemSetWidth) {
+      currentX += itemSetWidth;
+    }
+
+    if (currentX > 0) {
+      currentX -= itemSetWidth;
+    }
+  }
+
+  function pauseThenResume(delay = 1000) {
+    pausedUntil = Date.now() + delay;
+  }
+
+  function startDrag(clientX) {
+    isDragging = true;
+    tickerWrap.classList.add("dragging");
+
+    startX = clientX;
+    dragStartX = currentX;
+
+    lastPointerX = clientX;
+    lastPointerTime = performance.now();
+    velocityX = 0;
+
+    pausedUntil = Infinity;
+  }
+
+  function moveDrag(clientX) {
+    if (!isDragging) return;
+
+    const dx = clientX - startX;
+    currentX = dragStartX + dx;
+
+    const now = performance.now();
+    const deltaX = clientX - lastPointerX;
+    const deltaTime = now - lastPointerTime;
+
+    if (deltaTime > 0) {
+      velocityX = deltaX / deltaTime;
+    }
+
+    lastPointerX = clientX;
+    lastPointerTime = now;
+
+    normalizeLoop();
+    setPosition();
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+
+    isDragging = false;
+    tickerWrap.classList.remove("dragging");
+
+    pauseThenResume(1000);
+  }
+
+  function animate() {
+    if (isDragging) {
+      requestAnimationFrame(animate);
+      return;
+    }
+
+    const now = Date.now();
+
+    if (Math.abs(velocityX) > 0.01) {
+      currentX += velocityX * 16;
+      velocityX *= 0.95;
+
+      normalizeLoop();
+      setPosition();
+    } else if (now >= pausedUntil) {
+      currentX -= autoSpeed;
+
+      normalizeLoop();
+      setPosition();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  measureWidth();
+  setPosition();
+  requestAnimationFrame(animate);
+
+  window.addEventListener("resize", () => {
+    measureWidth();
+    normalizeLoop();
+    setPosition();
+  });
+
+  tickerWrap.addEventListener("mouseenter", () => {
+    pausedUntil = Infinity;
+  });
+
+  tickerWrap.addEventListener("mouseleave", () => {
+    pauseThenResume(1000);
+  });
+
+  tickerWrap.addEventListener("pointerdown", (e) => {
+    startDrag(e.clientX);
+  });
+
+  window.addEventListener("pointermove", (e) => {
+    moveDrag(e.clientX);
+  });
+
+  window.addEventListener("pointerup", () => {
+    endDrag();
+  });
+
+  window.addEventListener("pointercancel", () => {
+    endDrag();
+  });
+}
+
+if (tickerWrap && tickerTrack) {
 
   const originalItems = Array.from(tickerTrack.children);
   const gap = 14;
