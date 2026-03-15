@@ -1,3 +1,7 @@
+/* =========================
+   1. Переменные и база
+   Основные цвета и общие настройки сайта
+========================= */
 :root{
   --bg:#0b0b0f;
   --card:#121218;
@@ -7,7 +11,8 @@
 }
 
 html{
-  background:#0b0b0f;
+  background:var(--bg);
+  scroll-behavior:smooth;
 }
 
 *{
@@ -25,59 +30,26 @@ body{
   padding-top:110px;
 }
 
-.header-inner{
+/* =========================
+   2. Общие контейнеры
+   Ограничение ширины и сетка карточек
+========================= */
+.container{
   max-width:1100px;
-  margin:0 auto;
+  margin:auto;
   padding:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
 }
 
-.header-left{
-  display:flex;
-  align-items:center;
-  gap:28px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
 }
 
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:1100;
-  background:rgba(11,11,15,0.55);
-  backdrop-filter:blur(8px);
-}
-
-h1.site-title{
-  margin:0;
-  font-weight:600;
-  letter-spacing:1px;
-  color:var(--text);
-  cursor:pointer;
-  user-select:none;
-
-  transition:
-    transform .25s ease,
-    opacity .25s ease;
-}
-
-h1.site-title:hover{
-  transform:translateY(-2px);
-}
-
-h1.site-title:active{
-  transform:translateY(0) scale(.985);
-  opacity:.9;
-}
-
-.site-title{
-  text-decoration:none;
-  color:inherit;
-  display:inline-block;
-}
-
+/* =========================
+   3. Фоновые персонажи
+   Декоративные картинки слева и справа
+========================= */
 .hero-left,
 .hero-right{
   position:fixed;
@@ -95,65 +67,70 @@ h1.site-title:active{
   right:0;
 }
 
-.container{
+/* =========================
+   4. Шапка сайта
+   Фиксированный header и внутреннее расположение
+========================= */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1100;
+  background:rgba(11,11,15,0.55);
+  backdrop-filter:blur(8px);
+}
+
+.header-inner{
   max-width:1100px;
-  margin:auto;
+  margin:0 auto;
   padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:28px;
 }
 
-.card{
+/* =========================
+   5. Заголовок сайта
+   Логотип-текст AI инструменты
+========================= */
+h1.site-title{
+  margin:0;
+  font-weight:600;
+  letter-spacing:1px;
+  color:var(--text);
   cursor:pointer;
-  background:var(--card);
-  border:1px solid #1c1c24;
-  padding:22px;
-  border-radius:14px;
-  text-align:center;
-  transition:.25s;
-  position:relative;
+  user-select:none;
+  transition:
+    transform .25s ease,
+    opacity .25s ease;
 }
 
-.card:hover{
-  transform:translateY(-4px);
-  border-color:var(--accent);
-  box-shadow:0 0 8px rgba(255,79,163,.25);
+h1.site-title:hover{
+  transform:translateY(-2px);
 }
 
-.card img{
-  width:44px;
-  height:44px;
-  margin-bottom:12px;
+h1.site-title:active{
+  transform:translateY(0) scale(.985);
+  opacity:.9;
 }
 
-.card h3{
-  font-size:24px;
-  margin-bottom:8px;
-}
-
-.card p{
-  font-size:13px;
-  color:var(--muted);
-}
-
-.card a{
-  text-decoration:none;
+.site-title{
+  display:inline-block;
   color:inherit;
-  display:block;
+  text-decoration:none;
 }
 
-footer{
-  margin-top:60px;
-  padding:30px;
-  text-align:center;
-  color:#6f7480;
-  font-size:12px;
-}
-
+/* =========================
+   6. Десктопное меню
+   Ссылки в шапке и кнопка обновления
+========================= */
 .menu-desktop{
   display:flex;
   align-items:center;
@@ -205,6 +182,10 @@ footer{
   transform:rotate(90deg) scale(.9);
 }
 
+/* =========================
+   7. Бургер и мобильное меню
+   Иконка меню и выпадающая панель на телефоне
+========================= */
 .burger{
   width:52px;
   height:40px;
@@ -223,8 +204,12 @@ footer{
   height:4px;
   background:white;
   border-radius:999px;
-  transition:transform .3s ease, opacity .3s ease, background .25s ease, box-shadow .25s ease;
   transform-origin:center;
+  transition:
+    transform .3s ease,
+    opacity .3s ease,
+    background .25s ease,
+    box-shadow .25s ease;
 }
 
 .burger:hover span{
@@ -269,8 +254,8 @@ footer{
 }
 
 .mobile-menu a{
-  text-decoration:none;
   color:white;
+  text-decoration:none;
   font-weight:600;
   opacity:.65;
 }
@@ -283,14 +268,189 @@ footer{
   right:0;
 }
 
-.burger{
-  z-index:1001;
+/* =========================
+   8. Бегущая строка сервисов
+   Плавающий рядок с иконками и названиями
+========================= */
+.tools-ticker{
+  margin:8px auto 10px;
+  padding:0 20px;
+  position:relative;
+  z-index:20;
 }
 
-.mobile-menu{
-  z-index:1000;
+.ticker-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  overflow:hidden;
+  cursor:grab;
+  user-select:none;
+  position:relative;
 }
 
+.ticker-wrap::before,
+.ticker-wrap::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:60px;
+  z-index:2;
+  pointer-events:none;
+}
+
+.ticker-wrap::before{
+  left:0;
+  background:linear-gradient(to right, var(--bg), transparent);
+}
+
+.ticker-wrap::after{
+  right:0;
+  background:linear-gradient(to left, var(--bg), transparent);
+}
+
+.ticker-wrap.dragging{
+  cursor:grabbing;
+}
+
+.ticker-track{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  width:max-content;
+  will-change:transform;
+}
+
+.ticker-item{
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:6px 10px;
+  text-decoration:none;
+  color:var(--text);
+  opacity:.78;
+  background:none;
+  transition:
+    transform .2s ease,
+    opacity .2s ease,
+    filter .2s ease;
+
+}
+
+.ticker-item:hover{
+  opacity:1;
+  transform:scale(1.08);
+  filter:drop-shadow(0 0 8px rgba(255,79,163,.35));
+}
+
+.ticker-item img{
+  width:28px;
+  height:28px;
+
+  object-fit:contain;
+  display:block;
+  flex-shrink:0;
+
+  
+}
+
+.ticker-item:hover img{
+  transform:scale(1.08);
+}
+
+.ticker-item span{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.2px;
+  opacity:.85;
+}
+
+/* =========================
+   9. Карточки сервисов
+   Основной блок с AI инструментами и контактами
+========================= */
+.card{
+  position:relative;
+  cursor:pointer;
+  background:var(--card);
+  border:1px solid #1c1c24;
+  border-radius:14px;
+  padding:22px;
+  text-align:center;
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+  box-shadow:0 0 8px rgba(255,79,163,.25);
+}
+
+.card a{
+  display:block;
+  color:inherit;
+  text-decoration:none;
+}
+
+.card img{
+  width:44px;
+  height:44px;
+  margin-bottom:12px;
+}
+
+.card h3{
+  font-size:24px;
+  margin-bottom:8px;
+}
+
+.card p{
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* =========================
+   10. Секция контактов
+   Нижний блок с соцсетями и ссылками
+========================= */
+.contacts-section{
+  padding:70px 0 20px;
+}
+
+.contacts-section h2{
+  text-align:center;
+  font-size:28px;
+  font-weight:600;
+  margin-bottom:28px;
+  letter-spacing:.5px;
+}
+
+.contacts-grid{
+  margin-top:10px;
+}
+
+#contacts{
+  scroll-margin-top:40px;
+}
+
+/* =========================
+   11. Подвал сайта
+   Нижняя подпись
+========================= */
+footer{
+  margin-top:60px;
+  padding:30px;
+  text-align:center;
+  color:#6f7480;
+  font-size:12px;
+}
+
+/* =========================
+   12. Адаптив до 900px
+   Прячем боковых персонажей
+========================= */
 @media (max-width:900px){
   .hero-left,
   .hero-right{
@@ -298,6 +458,10 @@ footer{
   }
 }
 
+/* =========================
+   13. Адаптив до 700px
+   Мобильное меню и компактный ticker
+========================= */
 @media (max-width:700px){
   .menu-desktop{
     display:none;
@@ -333,11 +497,36 @@ footer{
     background:rgba(255,255,255,0.10);
     transform:scale(.98);
   }
+
+  .tools-ticker{
+    padding:0 14px;
+    margin:6px auto 8px;
+  }
+
+  .ticker-track{
+    gap:10px;
+  }
+
+.ticker-item{
+  padding:6px 8px;
 }
 
+.ticker-item span{
+  font-size:10px;
+}
+
+  .ticker-item:hover{
+    transform:none;
+  }
+}
+
+/* =========================
+   14. Адаптив до 600px
+   Две карточки в ряд на телефоне
+========================= */
 @media (max-width:600px){
   .grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(2, 1fr);
     gap:14px;
   }
 
@@ -353,28 +542,4 @@ footer{
     width:36px;
     height:36px;
   }
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-.contacts-section{
-  padding:70px 0 20px;
-}
-
-.contacts-section h2{
-  text-align:center;
-  font-size:28px;
-  font-weight:600;
-  margin-bottom:28px;
-  letter-spacing:.5px;
-}
-
-.contacts-grid{
-  margin-top:10px;
-}
-
-#contacts{
-  scroll-margin-top:40px;
 }
