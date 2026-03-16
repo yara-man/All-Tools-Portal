@@ -4,10 +4,19 @@
 ========================= */
 :root{
   --bg:#0b0b0f;
+  --bg-soft:#16161f;
   --card:#121218;
+  --card-border:#1c1c24;
   --accent:#ff4fa3;
   --text:#e8e8f0;
   --muted:#9aa0aa;
+  --footer-text:#6f7480;
+  --header-bg:rgba(11,11,15,0.55);
+  --menu-bg:rgba(17,17,23,0.40);
+  --menu-link-bg:rgba(255,255,255,0.06);
+  --menu-link-bg-active:rgba(255,255,255,0.10);
+  --white:#ffffff;
+  --ticker-fade-start:var(--bg);
 }
 
 html{
@@ -23,7 +32,7 @@ html{
 
 body{
   font-family:Inter, sans-serif;
-  background:radial-gradient(circle at 20% 20%, #16161f, #0b0b0f 60%);
+  background:radial-gradient(circle at 20% 20%, var(--bg-soft), var(--bg) 60%);
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
@@ -50,6 +59,7 @@ body{
    3. Фоновые персонажи
    Декоративные картинки слева и справа
 ========================= */
+/* 
 .hero-left,
 .hero-right{
   position:fixed;
@@ -58,6 +68,7 @@ body{
   opacity:.18;
   pointer-events:none;
 }
+*/
 
 .hero-left{
   left:0;
@@ -77,7 +88,7 @@ header{
   left:0;
   width:100%;
   z-index:1100;
-  background:rgba(11,11,15,0.55);
+  background:var(--header-bg);
   backdrop-filter:blur(8px);
 }
 
@@ -202,7 +213,7 @@ h1.site-title:active{
   display:block;
   width:40px;
   height:4px;
-  background:white;
+  background:var(--white);
   border-radius:999px;
   transform-origin:center;
   transition:
@@ -242,7 +253,7 @@ h1.site-title:active{
   top:88px;
   right:-200px;
   width:180px;
-  background:rgba(17,17,23,0.40);
+  background:var(--menu-bg);
   padding:18px 22px;
   display:flex;
   flex-direction:column;
@@ -288,25 +299,28 @@ h1.site-title:active{
   position:relative;
 }
 
-.ticker-wrap::before,
-.ticker-wrap::after{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:60px;
-  z-index:2;
-  pointer-events:none;
-}
+.ticker-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  overflow:hidden;
+  cursor:grab;
+  user-select:none;
+  position:relative;
 
-.ticker-wrap::before{
-  left:0;
-  background:linear-gradient(to right, var(--bg), transparent);
-}
-
-.ticker-wrap::after{
-  right:0;
-  background:linear-gradient(to left, var(--bg), transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
 }
 
 .ticker-wrap.dragging{
@@ -376,17 +390,22 @@ h1.site-title:active{
   position:relative;
   cursor:pointer;
   background:var(--card);
-  border:1px solid #1c1c24;
+  border:1px solid var(--card-border);
   border-radius:14px;
   padding:22px;
   text-align:center;
-  transition:.25s;
+  transition:
+    transform .2s ease,
+    box-shadow .25s ease;
 }
 
 .card:hover{
-  transform:translateY(-4px);
-  border-color:var(--accent);
-  box-shadow:0 0 8px rgba(255,79,163,.25);
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 0 8px var(--accent),
+    0 0 24px var(--glow),
+    0 10px 30px rgba(0,0,0,.35);
 }
 
 .card a{
@@ -443,7 +462,7 @@ footer{
   margin-top:60px;
   padding:30px;
   text-align:center;
-  color:#6f7480;
+  color:var(--footer-text);
   font-size:12px;
 }
 
@@ -490,11 +509,11 @@ footer{
 
   .mobile-menu a:hover{
     opacity:1;
-    background:rgba(255,255,255,0.06);
+    background:var(--menu-link-bg);
   }
 
   .mobile-menu a:active{
-    background:rgba(255,255,255,0.10);
+    background:var(--menu-link-bg-active);
     transform:scale(.98);
   }
 
@@ -542,4 +561,63 @@ footer{
     width:36px;
     height:36px;
   }
+}
+
+
+.card img{
+  width:36px;
+  height:36px;
+  object-fit:contain;
+}
+
+/* fallback SVG иконки (ai-icon.svg) */
+img[src*="ai-icon.svg"],
+img[src*="cdn.simpleicons.org"]{
+  transition: filter .25s ease;
+}
+
+
+.theme-btn{
+  width:12px;           /* было 22px */
+  height:12px;
+
+  display:block;
+
+  cursor:pointer;
+  margin:6px;
+  margin-bottom:20px;
+
+  opacity:.85;
+
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    filter .18s ease;
+}
+
+/* hover */
+.theme-btn:hover{
+  transform:scale(1.25);
+  opacity:1;
+  filter:drop-shadow(0 0 6px var(--accent))
+         drop-shadow(0 0 12px var(--glow));
+}
+
+/* клик */
+.theme-btn:active{
+  transform:scale(.9);
+}
+
+/* плавность всей панели */
+.theme-buttons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+footer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
