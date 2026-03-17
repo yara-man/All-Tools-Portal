@@ -454,6 +454,22 @@ h1.site-title:active{
   scroll-margin-top:40px;
 }
 
+
+/* =========================
+   Секция переводчиков
+========================= */
+.translate-section{
+  padding:70px 0 20px;
+}
+
+.translate-section h2{
+  text-align:center;
+  font-size:28px;
+  font-weight:600;
+  margin-bottom:28px;
+  letter-spacing:.5px;
+}
+
 /* =========================
    11. Подвал сайта
    Нижняя подпись

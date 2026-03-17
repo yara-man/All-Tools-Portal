@@ -137,6 +137,56 @@ const contacts = [
     url: "https://github.com",
     icon: "https://cdn.simpleicons.org/github/ffffff",
     alt: "GitHub"
+  },
+  {
+  name: "Steam",
+  description: "Игры и профиль",
+  url: "https://steamcommunity.com",
+  icon: "https://cdn.simpleicons.org/steam/ffffff",
+  alt: "Steam"
+  },
+  {
+  name: "Battle.net",
+  description: "Blizzard лаунчер и аккаунт",
+  url: "https://account.battle.net",
+  icon: "img/ai-icon.svg",
+  alt: "Battle.net"
+  }
+];
+
+
+/* =========================================
+   2.1 Массив переводчиков
+========================================= */
+
+const translators = [
+  {
+    name: "ENG → RUS",
+    description: "Перевод с английского на русский",
+    url: "https://translate.google.com/?sl=en&tl=ru&op=translate",
+    icon: "https://cdn.simpleicons.org/googletranslate/ffffff",
+    alt: "Google Translate"
+  },
+  {
+    name: "ENG → UKR",
+    description: "Перевод с английского на украинский",
+    url: "https://translate.google.com/?sl=en&tl=uk&op=translate",
+    icon: "https://cdn.simpleicons.org/googletranslate/ffffff",
+    alt: "Google Translate"
+  },
+  {
+    name: "UKR → RUS",
+    description: "Перевод с украинского на русский",
+    url: "https://translate.google.com/?sl=uk&tl=ru&op=translate",
+    icon: "https://cdn.simpleicons.org/googletranslate/ffffff",
+    alt: "Google Translate"
+  },
+  {
+    name: "RUS → ENG",
+    description: "Перевод с русского на английский",
+    url: "https://translate.google.com/?sl=ru&tl=en&op=translate",
+    icon: "https://cdn.simpleicons.org/googletranslate/ffffff",
+    alt: "Google Translate"
   }
 ];
 
@@ -343,6 +393,26 @@ function renderContacts() {
         <img src="${contact.icon}" alt="${contact.alt}">
         <h3>${contact.name}</h3>
         <p>${contact.description}</p>
+      </a>
+    </div>
+  `).join("");
+}
+
+
+/* =========================================
+   Рендер переводчиков
+========================================= */
+
+function renderTranslators() {
+  const grid = document.getElementById("translateGrid");
+  if (!grid) return;
+
+  grid.innerHTML = translators.map(item => `
+    <div class="card">
+      <a href="${item.url}" target="_blank" rel="noopener noreferrer">
+        <img src="${item.icon}" alt="${item.alt}">
+        <h3>${item.name}</h3>
+        <p>${item.description}</p>
       </a>
     </div>
   `).join("");
@@ -809,6 +879,7 @@ function injectThemeStyles() {
 renderTools();
 renderContacts();
 renderTicker();
+renderTranslators();
 injectThemeStyles();
 bindMobileMenuLinks();
 initTicker();

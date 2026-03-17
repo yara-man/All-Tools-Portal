@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>AI Tools Portal</title>
+  <!-- Основное -->
+<title>AI Tools Portal</title>
+<meta name="description" content="Удобный портал с подборкой AI-инструментов. Быстрый доступ к лучшим сервисам.">
 
+<!-- Open Graph (Telegram, Facebook, Discord и т.д.) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Tools Portal">
+<meta property="og:description" content="Удобный портал с подборкой AI-инструментов. Быстрый доступ к лучшим сервисам.">
+<meta property="og:url" content="https://yara-man.github.io/All-Tools-Portal/">
+<meta property="og:image" content="https://yara-man.github.io/All-Tools-Portal/img/preview.jpg">
+
+<!-- Twitter (работает и для многих мессенджеров) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Tools Portal">
+<meta name="twitter:description" content="Удобный портал с подборкой AI-инструментов.">
+<meta name="twitter:image" content="https://yara-man.github.io/All-Tools-Portal/img/preview.jpg">
+
+  <link rel="icon" type="image/svg+xml" href="img/ai-icon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -30,7 +46,8 @@
 
       <div class="menu-desktop">
         <a href="#top">Главная</a>
-        <a href="#contacts">Приложения</a>
+        <a href="#contacts">Медиа</a>
+        <a href="#translate">Переводчики</a>
         <span class="refresh-btn" onclick="location.reload()" title="Обновить страницу">
   <img src="https://fonts.gstatic.com/s/i/materialicons/refresh/v6/24px.svg" alt="">
 </span>
@@ -60,7 +77,8 @@
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="#top">Главная</a>
-    <a href="#contacts">Приложения</a>
+    <a href="#contacts">Медиа</a>
+    <a href="#translate">Переводчики</a>
 </div>
 
   <div class="container">
@@ -69,10 +87,18 @@
   </div>
      <section class="contacts-section" id="contacts">
   <div class="container">
-    <h2>Приложения</h2>
+    <h2>Медиа</h2>
     <div class="grid contacts-grid" id="contactsGrid"></div>
   </div>
 </section>
+
+<section class="translate-section" id="translate">
+  <div class="container">
+    <h2>Переводчики</h2>
+    <div class="grid" id="translateGrid"></div>
+  </div>
+</section>
+
   <footer>
 
 <div class="footer-caption">Выбор тем</div>
