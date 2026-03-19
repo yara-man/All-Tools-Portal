@@ -151,7 +151,17 @@ const contacts = [
   url: "https://account.battle.net",
   icon: "img/ai-icon.svg",
   alt: "Battle.net"
+  },
+  {
+  name: "Google Sheets",
+  description: "Таблицы, заметки и мини база данных",
+  url: "https://sheets.google.com",
+  icon: "https://cdn.simpleicons.org/googlesheets/ffffff",
+  alt: "Google Sheets"
   }
+
+
+
 ];
 
 
