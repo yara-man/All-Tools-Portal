@@ -94,6 +94,13 @@ const tools = [
     url: "https://www.midjourney.com",
     icon: "img/ai-icon.svg",
     alt: "Midjourney"
+  },
+  {
+  name: "Sora",
+  description: "Генерация видео с помощью AI от OpenAI",
+  url: "https://sora.chatgpt.com/explore",
+  icon: "img/ai-icon.svg",
+  alt: "Sora"
   }
 ];
 
